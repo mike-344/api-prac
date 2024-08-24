@@ -1,2 +1,2 @@
 # api-prac
-Learning API's
+Let's user search and display GIFs using Giphy API

@@ -4,19 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API-Prac</title>
+    <style>
+    .refresh{
+        display: block;
+        margin-bottom: 4px;
+    }
+
+    </style>
 </head>
 <body>
     <img src="" alt="">
+    <button class="refresh">Refresh</button>
+    <input type="text">
+    <button class="search">Search GIF</button>
     
 <script>
-      const img = document.querySelector('img');
-  fetch('https://api.giphy.com/v1/gifs/translate?api_key=BS057C7U0HonGCXe1Nf17q93THtMeZfS&s=cats', {mode: 'cors'})
+    const img = document.querySelector('img');
+    const refreshButton = document.querySelector('.refresh');
+    const searchButton = document.querySelector('.search');
+    const searchInput = document.querySelector('input');
+    let searchTerm = "goku";
+
+    function getGif(term){
+        fetch(`https://api.giphy.com/v1/gifs/translate?api_key=BS057C7U0HonGCXe1Nf17q93THtMeZfS&s=${term}`, {mode: 'cors'})
     .then(function(response) {
       return response.json();
     })
     .then(function(response) {
       img.src = response.data.images.original.url;
     });
+    }
+
+    function changeGif(){
+        searchTerm = searchInput.value;
+    }
+
+    refreshButton.addEventListener("click", ()=>{
+    getGif(searchTerm);
+})
+
+    searchButton.addEventListener("click", () => {
+        changeGif();
+        getGif(searchTerm);
+    })
+
+    getGif(searchTerm);
+
+    
 </script>    
 </body>
 </html>
