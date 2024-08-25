@@ -25,30 +25,30 @@
     const searchInput = document.querySelector('input');
     let searchTerm = "goku";
 
-    function getGif(term){
-        fetch(`https://api.giphy.com/v1/gifs/translate?api_key=BS057C7U0HonGCXe1Nf17q93THtMeZfS&s=${term}`, {mode: 'cors'})
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(response) {
-      img.src = response.data.images.original.url;
-    });
+    async function fetchGif(term){
+     let response = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=BS057C7U0HonGCXe1Nf17q93THtMeZfS&s=${term}`, {mode: 'cors'})
+    
+      let dataR = await response.json();
+    
+    
+      img.src = dataR.data.images.original.url;
     }
+   
 
     function changeGif(){
         searchTerm = searchInput.value;
     }
 
     refreshButton.addEventListener("click", ()=>{
-    getGif(searchTerm);
+    fetchGif(searchTerm);
 })
 
     searchButton.addEventListener("click", () => {
         changeGif();
-        getGif(searchTerm);
+        fetchGif(searchTerm);
     })
 
-    getGif(searchTerm);
+    fetchGif(searchTerm);
 
     
 </script>    
